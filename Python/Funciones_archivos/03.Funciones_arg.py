@@ -26,5 +26,4 @@ print("Ingr ese los nros a evaluar")
 numero1 = int(input("Ingrede el 1er nro:  "))
 numero2 = int(input("Ingrese el 2do nro:  "))
 resultado2 = caluladora(operacion='resta', a=numero1, b=numero2)
-print(resultado2)  
-
+print(resultado2) 
