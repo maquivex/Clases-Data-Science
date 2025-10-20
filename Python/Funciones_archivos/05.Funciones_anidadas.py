@@ -30,3 +30,12 @@ def factorial(n):
 
 print("Factorial de 5:", factorial(5))
 
+# Funciones como paramentros de otras funciones
+
+def aplicar_funcion(func, valor):
+    return func(valor)
+
+doblar = lambda x: x * 2
+resultado = aplicar_funcion(doblar, 5)
+print("Resultado de aplicar la función:", resultado)
+
