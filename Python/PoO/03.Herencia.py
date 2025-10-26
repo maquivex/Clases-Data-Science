@@ -17,7 +17,7 @@ class Profesor(Persona):
     def mostrar_profesor(self):
         print(f"Nombre: {self.nombre}, Email: {self.email}, Asignatura: {self.asignatura}") 
 
-alumno1 = Alumno("Juan Perez", "juan.perez@example.com", "Matemáticas")
+alumno1 = Alumno("Juan Perez", "juan.perez@example.com")
 alumno1.mostrar()
 
 profesor1 = Profesor("Ana Gómez", "ana.gomez@example.com", "Historia")
