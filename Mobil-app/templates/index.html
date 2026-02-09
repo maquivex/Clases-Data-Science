@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Precio de Celulares</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .selects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .inputs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            color: #333;
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="number"]::placeholder {
+            color: #999;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+        }
+
+        .price-section {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 2px solid #f0f0f0;
+            background: linear-gradient(135deg, #f5f7ff 0%, #fef5ff 100%);
+            padding: 24px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .price-label {
+            color: #666;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .price-display {
+            font-size: 42px;
+            font-weight: 700;
+            color: #667eea;
+            letter-spacing: -1px;
+        }
+
+        .price-currency {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: center;
+        }
+
+        .btn-calcular {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-calcular:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-calcular:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .selects-grid,
+            .inputs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-display {
+                font-size: 32px;
+            }
+
+            .btn-calcular {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .price-display {
+                font-size: 28px;
+            }
+
+            .btn-calcular {
+                width: 100%;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PREDICCIÓN DE PRECIO DE CELULARES</h1>
+            <p>Ingresa los datos de tu dispositivo para obtener una estimación del precio</p>
+        </div>
+
+        <form method="POST">
+            <!-- Sección de Selects -->
+            <div class="section">
+                <div class="section-title">Información Básica</div>
+                <div class="selects-grid">
+                    <div class="form-group">
+                        <label for="sistema">Sistema Operativo</label>
+                        <select id="sistema" name="os_name">
+                            {%for sistema in sistemas %}
+                                <option value="{{sistema}}">{{sistema}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="procesador">Procesador</label>
+                        <select id="procesador">
+                            <option value="">Seleccionar...</option>
+                            <option value="snapdragon">Snapdragon</option>
+                            <option value="apple">Apple Silicon</option>
+                            <option value="exynos">Exynos</option>
+                            <option value="mediatek">MediaTek</option>
+                            <option value="kirin">Kirin</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marca">Marca</label>
+                        <select id="marca">
+                            <option value="">Seleccionar...</option>
+                            <option value="apple">Apple</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="xiaomi">Xiaomi</option>
+                            <option value="huawei">Huawei</option>
+                            <option value="motorola">Motorola</option>
+                            <option value="oneplus">OnePlus</option>
+                            <option value="google">Google Pixel</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Inputs de Especificaciones -->
+            <div class="section">
+                <div class="section-title">Especificaciones Técnicas</div>
+                <div class="inputs-grid">
+                    <div class="form-group">
+                        <label for="banda">Banda (1 para 4G/5G, 0 para 3G/2G)</label>
+                        <input type="number" id="banda" placeholder="0 o 1" min="0" max="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nucleos">Núcleos del Procesador</label>
+                        <input type="number" id="nucleos" placeholder="Ej: 8" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memoria-ram">Memoria RAM (GB)</label>
+                        <input type="number" id="memoria-ram" placeholder="Ej: 8" min="1" step="0.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memoria-interna">Memoria Interna (GB)</label>
+                        <input type="number" id="memoria-interna" placeholder="Ej: 128" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bateria">Tamaño Batería (mAh)</label>
+                        <input type="number" id="bateria" placeholder="Ej: 4000" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="camara-trasera">Cámara Trasera (MP)</label>
+                        <input type="number" id="camara-trasera" placeholder="Ej: 48" min="0" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="camara-frontal">Cámara Frontal (MP)</label>
+                        <input type="number" id="camara-frontal" placeholder="Ej: 12" min="0" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tamaño-pantalla">Tamaño Pantalla (pulgadas)</label>
+                        <input type="number" id="tamaño-pantalla" placeholder="Ej: 6.7" min="1" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón Calcular -->
+            <div class="button-container">
+                <button type="button" class="btn-calcular">Calcular precio con IA</button>
+            </div>
+
+            <!-- Sección de Precio -->
+            <div class="price-section">
+                <span class="price-label">Precio Estimado</span>
+                <div class="price-display">
+                    <span class="price-currency">€</span><span>0.00</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

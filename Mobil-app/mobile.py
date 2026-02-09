@@ -67,19 +67,19 @@ class MobilePrice:
 
     return round(prediction[0][0],2) * 10000
 
-sistema = 'Android'
-procesador = 'Exynos'
-marca = 'Samsung'
-banda = 1
-nucleos = 4
-memoria_ram = 12
-memoria_interna = 128
-bateria_tamaño = 5000
-camera_trasera = 50
-camera_frontal = 20
-tamano_pantalla = 6.80
+# sistema = 'Android'
+# procesador = 'Exynos'
+# marca = 'Samsung'
+# banda = 1
+# nucleos = 4
+# memoria_ram = 12
+# memoria_interna = 128
+# bateria_tamaño = 5000
+# camera_trasera = 50
+# camera_frontal = 20
+# tamano_pantalla = 6.80
 
-new_mobile = MobilePrice()
+# new_mobile = MobilePrice()
 
-predicted_price = new_mobile.predict_price(sistema,procesador,marca,banda,nucleos,memoria_ram,memoria_interna,bateria_tamaño,camera_trasera,camera_frontal,tamano_pantalla)
-print(f"Predicted Price: {predicted_price:.3f} EUROS")
+# predicted_price = new_mobile.predict_price(sistema,procesador,marca,banda,nucleos,memoria_ram,memoria_interna,bateria_tamaño,camera_trasera,camera_frontal,tamano_pantalla)
+# print(f"Predicted Price: {predicted_price:.3f} EUROS")
